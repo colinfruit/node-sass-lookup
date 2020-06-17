@@ -39,6 +39,7 @@
     "mock-fs": "^4.5.0"
   },
   "dependencies": {
-    "commander": "^2.16.0"
+    "commander": "^2.16.0",
+    "enhanced-resolve": "^4.2.0"
   }
 }

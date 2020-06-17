@@ -2,6 +2,13 @@
 
 const path = require('path');
 const fs = require('fs');
+const resolve = require("enhanced-resolve");
+
+const myResolve = resolve.create.sync({
+	// or resolve.create.sync
+	extensions: ["", ".ts", ".js", ".tsx", ".jsx", ".less", ".css"]
+	// see more options below
+});
 
 function findDependency(searchDir, depName) {
   var nonPartialPath = path.resolve(searchDir, depName);
@@ -54,7 +61,7 @@ module.exports = function({dependency: dep, filename, directory} = {}) {
   const depDir = isSlashed ? path.dirname(dep) : '';
   const depName = (isSlashed ? path.basename(dep) : dep) + ext;
 
-  const relativeToFile = findDependency(path.resolve(fileDir, depDir), depName);
+  const relativeToFile = findDependency(myResolve(fileDir, depDir), depName);
   if (relativeToFile) {
     return relativeToFile;
   }
