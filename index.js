@@ -54,7 +54,7 @@ module.exports = function({dependency: dep, filename, directory} = {}) {
   const depDir = isSlashed ? path.dirname(dep) : '';
   const depName = (isSlashed ? path.basename(dep) : dep) + ext;
 
-  const relativeToFile = findDependency(myResolve.sync(fileDir, depDir), depName);
+  const relativeToFile = findDependency(path.resolve(fileDir, depDir), depName);
   if (relativeToFile) {
     return relativeToFile;
   }
