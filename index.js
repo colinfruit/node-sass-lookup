@@ -86,7 +86,10 @@ module.exports = function({dependency: dep, filename, directory} = {}) {
           console.log(e);                     
         }                           
       })
-      return resolvedPath;
+      if (resolvedPath) {
+
+        return resolvedPath;
+      }
     }
   }   
   // old versions returned a static path, if one could not be found
