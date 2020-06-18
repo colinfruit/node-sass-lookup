@@ -70,11 +70,24 @@ module.exports = function({dependency: dep, filename, directory} = {}) {
     }
   }
 
-  // find a way to resolve a node module if matches "~s"
-  const isNodeModule = /~/;
-  if (isNodeModule.test(dep)) {
-    return require.resolve(dep.replace(/~/, ""),  { extensions: ["", ".js", ".jsx", ".ts", ".tsx", ".less", ".css"]} );
-  }
+  const isNodeModule = /~/;                                                                                                                                                                            
+  if (isNodeModule.test(dep)) {                                                                                                                                                                        
+    if (dep.includes(".")) {                                                                                                                                                                           
+      return require.resolve(dep.replace(/~/, ""));                                                                                                                   
+    } else {                                                                                                                                                          
+      const possibleExtensions = ["", ".js", ".jsx", ".ts", ".tsx", ".less", ".css"];                                                         
+      let resolvedPath;
+      possibleExtensions.forEach(extension => {                                                                                              
+        try {                                                                                                                                
+          resolvedPath = require.resolve(dep.replace(/~/, ""));
+          resolvedPath;                               
+        } catch(e) {                                               
+          console.log(e);                     
+        }                           
+      })
+      return resolvedPath;
+    }
+  }   
   // old versions returned a static path, if one could not be found
   // do the same, if `directory` is not an array
   if (typeof directory === 'string') {
