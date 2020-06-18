@@ -70,28 +70,28 @@ module.exports = function({dependency: dep, filename, directory} = {}) {
     }
   }
 
-  const isNodeModule = /~/;                                                                                                                                                                            
-  if (isNodeModule.test(dep)) {                                                                                                                                                                        
-    if (dep.includes(".")) {                                                                                                                                                                           
-      return require.resolve(dep.replace(/~/, ""));                                                                                                                   
-    } else {                                                                                                                                                          
-      const possibleExtensions = ["", ".js", ".jsx", ".ts", ".tsx", ".less", ".css"];                                                         
+  const isNodeModule = /~/;
+  if (isNodeModule.test(dep)) {
+    if (dep.includes(".")) {
+      return require.resolve(dep.replace(/~/, ""));
+    } else {
+      const possibleExtensions = ["", ".js", ".jsx", ".ts", ".tsx", ".less", ".css"];
       let resolvedPath;
-      possibleExtensions.forEach(extension => {                                                                                              
-        try {                                                                                                                                
-	  if (require.resolve(dep.replace(/~/, "") + extension)) {
-            resolvedPath = require.resolve(dep.replace(/~/, "") + extension);
-	  }
-        } catch(e) {                                               
-          console.log(e);                     
-        }                           
+      possibleExtensions.forEach(extension => {
+        try {
+      	  if (require.resolve(dep.replace(/~/, "") + extension)) {
+                  resolvedPath = require.resolve(dep.replace(/~/, "") + extension);
+      	  }
+        } catch(e) {
+          console.log(e);
+        }
       })
       if (resolvedPath) {
 
         return resolvedPath;
       }
     }
-  }   
+  }
   // old versions returned a static path, if one could not be found
   // do the same, if `directory` is not an array
   if (typeof directory === 'string') {
