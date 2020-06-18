@@ -2,13 +2,6 @@
 
 const path = require('path');
 const fs = require('fs');
-const resolve = require("enhanced-resolve");
-
-const myResolve = resolve.create.sync({
-	// or resolve.create.sync
-	extensions: ["", ".ts", ".js", ".tsx", ".jsx", ".less", ".css"]
-	// see more options below
-});
 
 function findDependency(searchDir, depName) {
   var nonPartialPath = path.resolve(searchDir, depName);
