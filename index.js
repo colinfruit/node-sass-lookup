@@ -79,7 +79,7 @@ module.exports = function({dependency: dep, filename, directory} = {}) {
       let resolvedPath;
       possibleExtensions.forEach(extension => {                                                                                              
         try {                                                                                                                                
-          resolvedPath = require.resolve(dep.replace(/~/, ""));
+          resolvedPath = require.resolve(dep.replace(/~/, "") + extension);
           resolvedPath;                               
         } catch(e) {                                               
           console.log(e);                     
